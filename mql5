@@ -1,0 +1,75 @@
+
+// Developer: Forex Robot Easy Team
+// Website: forexroboteasy.com
+
+#property copyright 'Forex Robot Easy Team'
+#property link    'forexroboteasy.com'
+
+// Define session start and end times
+datetime londonSessionStart = D'2022.01.01 07:00';
+datetime londonSessionEnd = D'2022.01.01 15:00';
+datetime newYorkSessionStart = D'2022.01.01 12:00';
+datetime newYorkSessionEnd = D'2022.01.01 20:00';
+
+// Calculate London Session Killzone
+datetime londonKillzoneStart = londonSessionStart + PeriodSeconds(PERIOD_M1) * 30; // Start 30 minutes after session start
+datetime londonKillzoneEnd = londonSessionEnd - PeriodSeconds(PERIOD_M1) * 30; // End 30 minutes before session end
+
+// Calculate New York Session Killzone
+datetime newYorkKillzoneStart = newYorkSessionStart + PeriodSeconds(PERIOD_M1) * 30; // Start 30 minutes after session start
+datetime newYorkKillzoneEnd = newYorkSessionEnd - PeriodSeconds(PERIOD_M1) * 30; // End 30 minutes before session end
+
+// Identify Volatile Trading Periods
+double londonVolatility = CalculateVolatility(londonKillzoneStart, londonKillzoneEnd);
+double newYorkVolatility = CalculateVolatility(newYorkKillzoneStart, newYorkKillzoneEnd);
+
+// Function to calculate volatility
+double CalculateVolatility(datetime startTime, datetime endTime)
+{
+    // Retrieve historical price data within the given time range
+    double[] prices = GetHistoricalPrices(startTime, endTime);
+  
+    // Calculate volatility using a suitable algorithm
+    double volatility = VolatilityAlgorithm(prices);
+
+    return volatility;
+}
+
+// Function to retrieve historical price data
+double[] GetHistoricalPrices(datetime startTime, datetime endTime)
+{
+    // Implement code to retrieve historical price data from the trading platform
+    // Return an array of price values within the given time range
+    double[] prices;
+
+    return prices;
+}
+
+// Function to calculate volatility using a suitable algorithm
+double VolatilityAlgorithm(double[] prices)
+{
+    // Implement code to calculate volatility based on the price series
+    // Return the calculated volatility value
+    double volatility;
+
+    return volatility;
+}
+
+// Main entry point of the program
+void OnStart()
+{
+    // Print London Session Killzone
+    Print('London Session Killzone:');
+    Print('Start Time: ', TimeToString(londonKillzoneStart));
+    Print('End Time: ', TimeToString(londonKillzoneEnd));
+
+    // Print New York Session Killzone
+    Print('New York Session Killzone:');
+    Print('Start Time: ', TimeToString(newYorkKillzoneStart));
+    Print('End Time: ', TimeToString(newYorkKillzoneEnd));
+
+    // Print Volatile Trading Periods
+    Print('Volatile Trading Periods:');
+    Print('London Volatility: ', londonVolatility);
+    Print('New York Volatility: ', newYorkVolatility);
+}
